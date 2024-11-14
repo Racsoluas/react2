@@ -45,6 +45,10 @@ body, section, div, header, footer, main, aside, nav, blockquote, p, span{
     padding: 0;
 }
 
+.nav-link{
+    padding-left: 1rem;
+}
+
 body{
     font-family: "Manrope", sans-serif;
     font-optical-sizing: auto;
@@ -910,6 +914,7 @@ font-size: 14px;
 .custom-text {
     width: 350px;
     height: 100px;
+    margin-bottom: 2em;
 }
 
 
@@ -941,6 +946,20 @@ font-size: 14px;
     font-size: 2em;
     
 }
+.star-filled {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+  }
+  
+  .star-empty {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 400;
+  } 
+.rating-and-quote {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 
 .custom{
     display: flex;

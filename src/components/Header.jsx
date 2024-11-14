@@ -9,11 +9,12 @@ function Header() {
 
         <nav id="main-menu" className="navbar">
             <a className="nav-link" href="#">Features</a>
+            <a className="nav-link" href="#">Contact</a>
         </nav>
 
         <div id="darkmode-toggle-switch" className="btn-toggle-switch">
             <span className="label">Dark mode</span>
-            <label for="darkmode-switch" className="toggle-switch">
+            <label htmlFor="darkmode-switch" className="toggle-switch">
                 <input id="darkmode-switch" type="checkbox" />
                 <span className="slider round"></span>
             </label>
