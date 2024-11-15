@@ -8,7 +8,7 @@ function Hero() {
             <h1>Manage All Your Money in One App</h1>
         </div>
         <div className="content">
-            <p>We offer you a new generation of the mobile banking. Save, spend & manage money in your pocket.</p>
+            <p className="hero-text">We offer you a new generation of the mobile banking. Save, spend & manage money in your pocket.</p>
             <div className="buttons">
                 <a className="btn-download-app" href="#">
                     <img src="/Images/app-blk.svg" alt="App Store button" />

@@ -1,6 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 function Header() {
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+
+    useEffect(() => {
+        const storedThemeMode = localStorage.getItem('themeMode');
+    if(storedThemeMode === 'dark' || (!storedThemeMode && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+       setIsDarkMode(true);
+       document.documentElement.classList.add('dark-mode');
+    } else {
+        setIsDarkMode(false);
+        document.documentElement.classList.remove('dark-mode');
+    }
+    }, []);
+
+    const handleThemeToggle = () => {
+        if(isDarkMode){
+            setIsDarkMode(false);
+            localStorage.setItem('themeMode', 'light');
+            document.documentElement.classList.remove('dark');
+        }else{
+            setIsDarkMode(true);
+            localStorage.setItem('themeMode', 'dark');
+            document.documentElement.classList.add('dark');
+        }
+    }
+
+    console.log(isDarkMode);
+
   return (
     <header>
     <div className="container">
@@ -15,7 +43,12 @@ function Header() {
         <div id="darkmode-toggle-switch" className="btn-toggle-switch">
             <span className="label">Dark mode</span>
             <label htmlFor="darkmode-switch" className="toggle-switch">
-                <input id="darkmode-switch" type="checkbox" />
+                <input 
+                    id="darkmode-switch" 
+                    type="checkbox" 
+                    checked={isDarkMode}
+                    onChange={handleThemeToggle}
+                />
                 <span className="slider round"></span>
             </label>
         </div>
@@ -32,6 +65,8 @@ function Header() {
 
     </div>
 </header>
+
+
   )
 }
 
