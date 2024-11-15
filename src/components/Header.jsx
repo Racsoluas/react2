@@ -33,7 +33,7 @@ function Header() {
     <header>
     <div className="container">
 
-        <a id="logo" href="index.html"><img src="/Images/logo.svg" alt="Silicone Logotype" /></a>
+        <a id="logo" className="brand-box" href="index.html"><img src="/Images/silicon_logo_icon.svg" alt="Silicon Logotype" /><h1 className="brand-name">Silicon</h1></a>
 
         <nav id="main-menu" className="navbar">
             <a className="nav-link" href="#">Features</a>

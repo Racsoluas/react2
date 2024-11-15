@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import AccordionItem from './AccordionItem'
 
 function FAQ() {
+
+    const [accordions, setAccordions] = useState([])
+    const fetchFaq  = async () => {
+        const res = await fetch('https://win24-assignment.azurewebsites.net/api/faq')
+        const data = await res.json()
+        setAccordions(data)
+    }
+    
+    useEffect(() => {
+        fetchFaq()
+    }, [])
+
   return (
     <div className="faq container">
     
@@ -22,7 +35,7 @@ function FAQ() {
     </div>
 </div>
 
-    <div className="faq-bar">
+    {/* <div className="faq-bar">
         <div className="faq-1 first">
             <img className="faq-arrow" src="/Images/arrow-down.svg" alt="Pil ner" />
             <h1 className="faq-q1">Is any of my personal information stored in the App?</h1>
@@ -47,6 +60,13 @@ function FAQ() {
             <h1 className="faq-q1">What happens if I forget or lose my password?</h1>
         </div>
 
+    </div> */}
+    <div className="faq-bar">
+    {
+    accordions.map((item) => (
+        <AccordionItem key={item.id} item={item} />
+    ))
+    }
     </div>
 
  </div>
