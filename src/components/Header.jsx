@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
 function Header() {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -33,11 +34,11 @@ function Header() {
     <header>
     <div className="container">
 
-        <a id="logo" className="brand-box" href="index.html"><img src="/Images/silicon_logo_icon.svg" alt="Silicon Logotype" /><h1 className="brand-name">Silicon</h1></a>
+        <Link id="logo" className="brand-box" to="/"><img src="/Images/silicon_logo_icon.svg" alt="Silicon Logotype" /><h1 className="brand-name">Silicon</h1></Link>
 
         <nav id="main-menu" className="navbar">
-            <a className="nav-link" href="#">Features</a>
-            <a className="nav-link" href="#">Contact</a>
+            <Link className="nav-link" to="#">Features</Link>
+            <Link className="nav-link" to="/contact">Contact</Link>
         </nav>
 
         <div id="darkmode-toggle-switch" className="btn-toggle-switch">
