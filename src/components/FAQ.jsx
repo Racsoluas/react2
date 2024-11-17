@@ -15,7 +15,7 @@ function FAQ() {
     }, [])
 
   return (
-    <div className="faq container">
+    <div className="faq contain">
     
     <div className="faq-contact">
         <h1>Any questions? Check out the FAQs</h1>
@@ -61,7 +61,7 @@ function FAQ() {
         </div>
 
     </div> */}
-    <div className="faq-bar">
+    <div className="accordion-container">
     {
     accordions.map((item) => (
         <AccordionItem key={item.id} item={item} />
