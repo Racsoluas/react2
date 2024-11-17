@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ContactForm = () => {
 
@@ -19,6 +20,13 @@ const ContactForm = () => {
 
         if (value.trim() === '') {
             setError(prevErrors => ({...prevErrors, [name]: `The ${name} field is required`}))
+        } else if (name === 'email') {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+            if (!emailRegex.test(value)) {
+                setError(prevErrors => ({...prevErrors, [name]: 'Please enter a valid email address'}))
+            } else {
+                setError(prevErrors => ({...prevErrors, [name]: ''}))
+            }
         } else {
             setError(prevErrors => ({...prevErrors, [name]: ''}))
         }
@@ -31,39 +39,67 @@ const ContactForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-        const newErrors = {}
-        Object.keys(formData).forEach(field => {
-            if (formData[field].trim() === '') {
-                newErrors[field] = `The ${field} field is required`
+        
+        // Validera alla fält innan submit
+        let newErrors = {}
+        if (!formData.name.trim() || formData.name.length < 2) {
+            newErrors.name = 'Namnet måste vara minst 2 tecken långt'
+        }
+        if (!formData.email.trim()) {
+            newErrors.email = 'E-post är obligatoriskt'
+        } else {
+            const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
+            if (!emailRegex.test(formData.email)) {
+                newErrors.email = 'Vänligen ange en giltig e-postadress'
             }
-        })
+        }
+        if (!formData.message.trim()) {
+            newErrors.message = 'Specialist är obligatoriskt'
+        }
 
         if (Object.keys(newErrors).length > 0) {
             setError(newErrors)
             return
         }
+        
+        try {
+            const response = await fetch('https://win24-assignment.azurewebsites.net/api/forms/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fullName: formData.name,
+                    email: formData.email,
+                    specialist: formData.message
+                })
+            })
 
-        const res = await fetch('', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
+            if (!response.ok) {
+                throw new Error('Något gick fel vid skickandet av formuläret')
+            }
 
-        if(res.ok) {
             setSubmitted(true)
-            setFormData({ name: '', email: '', message: '' })   
+            setFormData({ name: '', email: '', message: '' })
+            setError({})
+        } catch (error) {
+            console.error('Error:', error)
+            setError({ submit: 'Ett fel uppstod när formuläret skulle skickas' })
         }
     }
 
     if(submitted) {
-        return <div className='informationbox'>
-            <h2>Thank you for contacting us</h2>
-            <p>Vi återkommer till dig så snart vi kan.</p>
-            <button className="btn-green" onClick={handleOk}>OK</button>
-        </div>
+        return (
+            <div className='informationbox'>
+                <FontAwesomeIcon 
+                    icon="fa-solid fa-thumbs-up" 
+                    bounce 
+                    style={{ color: '#4CAF50', fontSize: '4rem' }}
+                />
+                <h2 className="success-contact">Thank you for contacting us</h2>                
+                <button className="btn-green" onClick={handleOk}>OK</button>
+            </div>
+        )
     }
 
   return (
@@ -120,7 +156,7 @@ const ContactForm = () => {
                 <span style={{ color: '#ff0000' }}>{error.message && error.message}</span>
             </div>
 
-            <button type="submit">Make an appointment</button>
+            <button type="submit" className='submit'>Make an appointment</button>
         </div>
     </form>
   )

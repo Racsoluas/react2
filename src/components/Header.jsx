@@ -31,7 +31,7 @@ function Header() {
     console.log(isDarkMode);
 
   return (
-    <header>
+    <header className="header">
     <div className="container">
 
         <Link id="logo" className="brand-box" to="/"><img src="/Images/silicon_logo_icon.svg" alt="Silicon Logotype" /><h1 className="brand-name">Silicon</h1></Link>

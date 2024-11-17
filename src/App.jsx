@@ -3,6 +3,12 @@ import Home from './pages/Home'
 import Contact from './pages/Contact'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+library.add(faThumbsUp)
+
 
 /*  test ändrar igen 2024-11-17  */
 

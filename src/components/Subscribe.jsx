@@ -6,17 +6,36 @@ function Subscribe() {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-    return regex.test(email)
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+    return regex.test(email) && email.length <= 100
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (validateEmail(email)) {
-      // Hantera prenumerationen här
-      console.log('Giltig e-postadress:', email)
-      setIsValid(true)
-      setIsSubmitted(true)
+      try {
+        const cleanEmail = email.trim()
+        
+        const response = await fetch('https://win24-assignment.azurewebsites.net/api/forms/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'accept': '*/*'
+          },
+          body: JSON.stringify({ email: cleanEmail }),
+        })
+
+        if (response.ok) {
+          setIsValid(true)
+          setIsSubmitted(true)
+          console.log('Prenumeration lyckades! E-post skickad till API:', cleanEmail)
+        } else {
+          throw new Error('Något gick fel vid prenumerationen')
+        }
+      } catch (error) {
+        console.error('Fel:', error)
+        setIsValid(false)
+      }
     } else {
       setIsValid(false)
     }
