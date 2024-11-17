@@ -10,7 +10,7 @@ import FAQ from './components/FAQ'
 import Subscribe from './components/Subscribe'
 import Footer from './components/Footer'
 
-
+/*  test ändrar igen 2024-11-17  */
 
 const App = () => {
   return (
